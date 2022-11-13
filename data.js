@@ -39,6 +39,7 @@ const data = {
       price: '1500',
       image: './assets/images/yasin-hasan-_h50cvQCj_M-unsplash.jpg',
       seller: 'Hasibul Hamid',
+      sellerImage: './assets/images/users/pngwing.com.png',
     },
     {
       name: 'Sunglass',
@@ -49,6 +50,7 @@ const data = {
       price: '540',
       image: './assets/images/charlesdeluvio-1-nx1QR5dTE-unsplash.jpg',
       seller: 'Tanjimul Hamid',
+      sellerImage: './assets/images/users/pngwing.com.png',
     },
   ],
   sellers: [{}],

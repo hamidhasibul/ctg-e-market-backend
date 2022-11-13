@@ -35,7 +35,9 @@ UserRouter.post('/register', async (req, res) => {
     password: bcrypt.hashSync(req.body.password),
     address: req.body.address,
     phone: req.body.phone,
-    image: req.body.image || './assets/images/users/pngwing.com.png', //for default image
+    image:
+      req.body.image ||
+      'https://res.cloudinary.com/dpxmimqsi/image/upload/v1668371065/pngwing.com_jp7nkt.png', //for default image
   });
   const user = await newUser.save();
   res.send({
@@ -79,4 +81,22 @@ UserRouter.put('/update', async (req, res) => {
   }
 });
 
+// For All Users
+
+UserRouter.get('/all', async (req, res) => {
+  const users = await User.find();
+  res.send(users);
+});
+
 export default UserRouter;
+
+// For individual Users
+
+UserRouter.get('/user/:id', async (req, res) => {
+  const user = await User.findOne({ _id: req.params.id });
+  if (user) {
+    res.send(user);
+  } else {
+    res.status(404).send({ message: 'User Not Found' });
+  }
+});
