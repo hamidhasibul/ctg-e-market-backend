@@ -42,4 +42,48 @@ ProductRouter.post('/add', async (req, res) => {
   }
 });
 
+//for update product
+ProductRouter.put('/update', async (req, res) => {
+  const product = await Product.findById(req.body._id);
+  //if product exists
+  if (product) {
+    product.name = req.body.name || product.name;
+    product.slug = req.body.slug || product.slug;
+    product.category = req.body.category || product.category;
+    product.description = req.body.description || product.description;
+    product.price = req.body.price || product.price;
+    product.image = req.body.image || product.image;
+    product.sellerId = req.body.sellerId || product.sellerId;
+    product.seller = req.body.seller || product.seller;
+    product.sellerImage = req.body.sellerImage || product.sellerImage;
+
+    const updateProduct = await product.save();
+    res.send({
+      _id: updateProduct._id,
+      name: updateProduct.name,
+      slug: updateProduct.slug,
+      category: updateProduct.category,
+      description: updateProduct.description,
+      price: updateProduct.price,
+      image: updateProduct.image,
+      sellerId: updateProduct.sellerId,
+      seller: updateProduct.seller,
+      sellerImage: updateProduct.sellerImage,
+    });
+  } else {
+    res.status(401).send({ message: 'Product not Found!' });
+  }
+});
+
+// Deleting Product
+
+ProductRouter.delete('/delete/:id', async (req, res) => {
+  try {
+    await Product.findByIdAndDelete(req.params.id);
+    res.status(200).json('Product has been deleted!');
+  } catch (error) {
+    console.log("Can't be deleted!");
+  }
+});
+
 export default ProductRouter;
