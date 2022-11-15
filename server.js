@@ -5,6 +5,7 @@ import seedRouter from './routes/seedRoutes.js';
 import CategoryRouter from './routes/categoryRoutes.js';
 import UserRouter from './routes/userRoutes.js';
 import ProductRouter from './routes/productRoutes.js';
+import OrderRouter from './routes/orderRoutes.js';
 
 const app = express();
 
@@ -17,6 +18,7 @@ app.use('/api/seed/', seedRouter);
 app.use('/api/category/', CategoryRouter);
 app.use('/api/products/', ProductRouter);
 app.use('/api/users/', UserRouter);
+app.use('/api/orders/', OrderRouter);
 
 // Connect with DB
 
