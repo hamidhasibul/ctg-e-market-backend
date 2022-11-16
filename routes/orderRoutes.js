@@ -38,6 +38,7 @@ OrderRouter.get('/:id', async (req, res) => {
 });
 
 //Get my orders
+//Get my orders
 OrderRouter.get('/userorders/:id', async (req, res) => {
   const orders = await Order.find({ sellerId: req.params.id });
   res.send(orders);
