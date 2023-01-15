@@ -1,11 +1,12 @@
-import express from 'express';
-import mongoose from 'mongoose';
-import dotenv from 'dotenv';
-import seedRouter from './routes/seedRoutes.js';
-import CategoryRouter from './routes/categoryRoutes.js';
-import UserRouter from './routes/userRoutes.js';
-import ProductRouter from './routes/productRoutes.js';
-import OrderRouter from './routes/orderRoutes.js';
+import express from "express";
+import mongoose from "mongoose";
+import dotenv from "dotenv";
+import seedRouter from "./routes/seedRoutes.js";
+import CategoryRouter from "./routes/categoryRoutes.js";
+import UserRouter from "./routes/userRoutes.js";
+import ProductRouter from "./routes/productRoutes.js";
+import OrderRouter from "./routes/orderRoutes.js";
+import PostRouter from "./routes/postRoutes.js";
 
 const app = express();
 
@@ -14,11 +15,12 @@ app.use(express.urlencoded({ extended: true }));
 
 //Router
 
-app.use('/api/seed/', seedRouter);
-app.use('/api/category/', CategoryRouter);
-app.use('/api/products/', ProductRouter);
-app.use('/api/users/', UserRouter);
-app.use('/api/orders/', OrderRouter);
+app.use("/api/seed/", seedRouter);
+app.use("/api/category/", CategoryRouter);
+app.use("/api/products/", ProductRouter);
+app.use("/api/users/", UserRouter);
+app.use("/api/orders/", OrderRouter);
+app.use("/api/posts/", PostRouter);
 
 // Connect with DB
 
@@ -27,7 +29,7 @@ dotenv.config();
 mongoose
   .connect(process.env.MONGODB_URI)
   .then(() => {
-    console.log('connected to DB');
+    console.log("connected to DB");
   })
   .catch((err) => {
     console.log(err.message);

@@ -1,17 +1,42 @@
 import express from "express";
-import Product from "../models/productModel.js";
+import Post from "../models/postModel.js";
 
-const ProductRouter = express.Router();
+const PostRouter = express.Router();
 
-//Fetiching Product From DB
+//Fetiching Post From DB
 
-ProductRouter.get("/", async (req, res) => {
-  const product = await Product.find();
-  res.send(product);
+PostRouter.get("/", async (req, res) => {
+  const post = await Post.find();
+  res.send(post);
 });
 
+//create post
+PostRouter.post("/add", async (req, res) => {
+  const newPost = new Post(req.body);
+
+  try {
+    const savedPost = await newPost.save();
+    res.status(200).json(savedPost);
+  } catch (error) {
+    console.log("Error!");
+  }
+});
+
+// Deleting Product
+
+PostRouter.delete("/delete/:id", async (req, res) => {
+  try {
+    await Post.findByIdAndDelete(req.params.id);
+    res.status(200).json("Post has been deleted!");
+  } catch (error) {
+    console.log("Can't be deleted!");
+  }
+});
+
+export default PostRouter;
+
 //get product by slug
-ProductRouter.get("/slug/:slug", async (req, res) => {
+/* ProductRouter.get("/slug/:slug", async (req, res) => {
   const product = await Product.findOne({ slug: req.params.slug });
   if (product) {
     res.send(product);
@@ -19,31 +44,19 @@ ProductRouter.get("/slug/:slug", async (req, res) => {
     res.status(404).send({ message: "Product Not Found" });
   }
 });
-
+ */
 //get product by sellerId
-ProductRouter.get("/seller/:id", async (req, res) => {
+/* ProductRouter.get("/seller/:id", async (req, res) => {
   const product = await Product.find({ sellerId: req.params.id });
   if (product) {
     res.send(product);
   } else {
     res.status(404).send({ message: "No Product of the this Seller" });
   }
-});
-
-//create product
-ProductRouter.post("/add", async (req, res) => {
-  const newProduct = new Product(req.body);
-
-  try {
-    const savedProduct = await newProduct.save();
-    res.status(200).json(savedProduct);
-  } catch (error) {
-    console.log("Error!");
-  }
-});
+}); */
 
 //for update product
-ProductRouter.put("/update", async (req, res) => {
+/* ProductRouter.put("/update", async (req, res) => {
   const product = await Product.findById(req.body._id);
   //if product exists
   if (product) {
@@ -73,17 +86,4 @@ ProductRouter.put("/update", async (req, res) => {
   } else {
     res.status(401).send({ message: "Product not Found!" });
   }
-});
-
-// Deleting Product
-
-ProductRouter.delete("/delete/:id", async (req, res) => {
-  try {
-    await Product.findByIdAndDelete(req.params.id);
-    res.status(200).json("Product has been deleted!");
-  } catch (error) {
-    console.log("Can't be deleted!");
-  }
-});
-
-export default ProductRouter;
+}); */
