@@ -3,7 +3,7 @@ import Post from "../models/postModel.js";
 
 const PostRouter = express.Router();
 
-//Fetiching Post From DB
+//Fetching Post From DB
 
 PostRouter.get("/", async (req, res) => {
   const post = await Post.find();

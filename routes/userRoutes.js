@@ -1,12 +1,12 @@
-import express from 'express';
-import User from '../models/userModel.js';
-import bcrypt from 'bcryptjs';
+import express from "express";
+import User from "../models/userModel.js";
+import bcrypt from "bcryptjs";
 
 const UserRouter = express.Router();
 
 // User Login
 
-UserRouter.post('/login', async (req, res) => {
+UserRouter.post("/login", async (req, res) => {
   const user = await User.findOne({ email: req.body.email });
 
   if (user) {
@@ -23,12 +23,12 @@ UserRouter.post('/login', async (req, res) => {
       return;
     }
   }
-  res.status(401).send({ message: 'Invalid Email or Password' });
+  res.status(401).send({ message: "Invalid Email or Password" });
 });
 
 // Registering New Users
 
-UserRouter.post('/register', async (req, res) => {
+UserRouter.post("/register", async (req, res) => {
   const newUser = new User({
     name: req.body.name,
     email: req.body.email,
@@ -37,7 +37,7 @@ UserRouter.post('/register', async (req, res) => {
     phone: req.body.phone,
     image:
       req.body.image ||
-      'https://res.cloudinary.com/dpxmimqsi/image/upload/v1668371065/pngwing.com_jp7nkt.png', //for default image
+      "https://res.cloudinary.com/dpxmimqsi/image/upload/v1668371065/pngwing.com_jp7nkt.png", //for default image
   });
   const user = await newUser.save();
   res.send({
@@ -53,7 +53,7 @@ UserRouter.post('/register', async (req, res) => {
 
 // Updating user data
 
-UserRouter.put('/update', async (req, res) => {
+UserRouter.put("/update", async (req, res) => {
   const user = await User.findById(req.body._id);
 
   if (user) {
@@ -77,26 +77,26 @@ UserRouter.put('/update', async (req, res) => {
       isAdmin: updateUser.isAdmin,
     });
   } else {
-    res.status(401).send({ message: 'User not Found!' });
+    res.status(401).send({ message: "User not Found!" });
   }
 });
 
 // For All Users
 
-UserRouter.get('/all', async (req, res) => {
+UserRouter.get("/all", async (req, res) => {
   const users = await User.find();
   res.send(users);
 });
 
-export default UserRouter;
-
 // For individual Users
 
-UserRouter.get('/user/:id', async (req, res) => {
+UserRouter.get("/user/:id", async (req, res) => {
   const user = await User.findOne({ _id: req.params.id });
   if (user) {
     res.send(user);
   } else {
-    res.status(404).send({ message: 'User Not Found' });
+    res.status(404).send({ message: "User Not Found" });
   }
 });
+
+export default UserRouter;
