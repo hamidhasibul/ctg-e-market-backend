@@ -44,6 +44,16 @@ OrderRouter.get("/:id", async (req, res) => {
   }
 });
 
+//Get individual Order
+OrderRouter.get("/ind/:id", async (req, res) => {
+  const order = await Order.findById(req.params._id);
+  if (order) {
+    res.send(order);
+  } else {
+    res.status(404).send({ message: "Order Not Found" });
+  }
+});
+
 //Get my orders
 //Get my orders
 OrderRouter.get("/userorders/:id", async (req, res) => {
