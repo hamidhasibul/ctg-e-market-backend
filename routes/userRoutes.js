@@ -99,4 +99,15 @@ UserRouter.get("/user/:id", async (req, res) => {
   }
 });
 
+// User Delete
+
+UserRouter.delete("/delete/:id", async (req, res) => {
+  try {
+    await User.findByIdAndDelete(req.params.id);
+    res.status(200).json("User has been deleted!");
+  } catch (error) {
+    console.log("Can't be deleted!");
+  }
+});
+
 export default UserRouter;

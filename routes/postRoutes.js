@@ -22,7 +22,7 @@ PostRouter.post("/add", async (req, res) => {
   }
 });
 
-// Deleting Product
+// Deleting Post
 
 PostRouter.delete("/delete/:id", async (req, res) => {
   try {
